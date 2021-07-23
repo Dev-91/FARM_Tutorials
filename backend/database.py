@@ -4,7 +4,7 @@ from model import Todo
 # MongoDB driver
 import motor.motor_asyncio
 
-client = motor.motor_asyncio.AsyncIOMotorClient("mongodb://127.0.0.1:27017")
+client = motor.motor_asyncio.AsyncIOMotorClient("mongodb://localhost:27017")
 database = client.TodoList
 collection = database.todo
 
@@ -25,8 +25,9 @@ async def create_todo(todo):
     return document
 
 async def update_todo(title, desc):
-    await collection.update_one({"title":title}, {"$set":{
-        "description":desc}})
+    await collection.update_one(
+        {"title":title}, 
+        {"$set":{"description":desc}})
     document = await collection.find_one({"tile":title})
     return document
 
